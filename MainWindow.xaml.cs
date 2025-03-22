@@ -18,65 +18,26 @@ namespace Battle_Ships
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
+    Grid myGrid = null;
         public MainWindow()
         {
             InitializeComponent();
 
-            /*
-            Grid myGrid = new Grid();
-            List<RowDefinition> Rows = new List<RowDefinition>();
-            List<ColumnDefinition> Columns = new List<ColumnDefinition>();
-            List<Button> Buttons = new List<Button>();
-            
-            //Adding 100 Buttons to List
-
-            for(int i = 0; i < 10; i++)
-            {
-                for(int j = 0; j < 10; j++)
-                {
-                    Button Btn = new Button();
-                    Btn.Content = ""+i+j;
-                    
-
-                    myGrid.Children.Add(Btn);
-                    Grid.SetRow(Btn, i);
-                    Grid.SetColumn(Btn, j);
-                }
-            }
-
-            
-
-            for(int i = 0; i < 10; i++)
-            {
-                Rows.Add(new RowDefinition());
-                Columns.Add(new ColumnDefinition());
-            }
-            foreach (RowDefinition x in Rows) 
-                myGrid.RowDefinitions.Add(x);
-            
-            foreach (ColumnDefinition y in Columns)
-                myGrid.ColumnDefinitions.Add(y);
-            */
-
-            Grid myGrid = GenerateField("MyGrid");
+            myGrid = GenerateField("MyGrid");
             Grid EnemyGrid = GenerateField("EnemyGrid");
             
-
 
             (FindName("GameField") as Grid)?.Children.Add(myGrid);
 
 
-            foreach(Button x in myGrid.Children)
-            {
-                x.Background = Brushes.Red;
-            }
+            //foreach(Button x in myGrid.Children)
+            //{
+            //    x.Background = Brushes.Red;
+            //}
             
-            
- 
-                    
-
             Grid.SetRow(myGrid, 1);
             Grid.SetColumn(myGrid, 1);
 
@@ -151,15 +112,67 @@ namespace Battle_Ships
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            if ((sender as Button).Background == Brushes.Red)
-                (sender as Button).Background = Brushes.Orange;
+            //if ((sender as Button).Background == Brushes.Red)
+            //    (sender as Button).Background = Brushes.Orange;
+
+            int centerIndex = myGrid.Children.IndexOf(sender as Button);
+
+            for(int i = -1; i < 2; i++)
+            {
+                for(int j = -1; j < 2; j++)
+                {
+                    int Index = centerIndex;
+                    if (((centerIndex + j) / 10 != centerIndex / 10) || centerIndex + j < 0 || centerIndex + j > 99)
+                    {
+                        Index += j * (-2);
+                    }
+                    else
+                        Index += j;
+                    if((centerIndex + i * 10) < 0 || (centerIndex + i * 10) > 99)
+                    {
+                        Index += i * (-2) * 10;
+                    }
+                    else
+                    {
+                        Index += i * 10;
+                    }
+
+                    (myGrid.Children[Index] as Button).BorderBrush = Brushes.Orange;
+                }
+            }
             
         }
         private void Button_MouseLeave(object sender, MouseEventArgs e)
         {
-            if((sender as Button).Background == Brushes.Orange)
-            (sender as Button).Background = Brushes.Red;
-            
+            //if((sender as Button).Background == Brushes.Orange)
+            //(sender as Button).Background = Brushes.Red;
+
+            int centerIndex = myGrid.Children.IndexOf(sender as Button);
+
+            for (int i = -1; i < 2; i++)
+            {
+                for (int j = -1; j < 2; j++)
+                {
+                    int Index = centerIndex;
+                    if (((centerIndex + j) / 10 != centerIndex / 10) || centerIndex + j < 0 || centerIndex + j > 99)
+                    {
+                        Index += j * (-2);
+                    }
+                    else
+                        Index += j;
+                    if ((centerIndex + i * 10) < 0 || (centerIndex + i * 10) > 99)
+                    {
+                        Index += i * (-2) * 10;
+                    }
+                    else
+                    {
+                        Index += i * 10;
+                    }
+
+                    (myGrid.Children[Index] as Button).BorderBrush = Brushes.Transparent;
+                }
+            }
+
         }
     }   
 
