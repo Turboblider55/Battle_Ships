@@ -15,7 +15,7 @@
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
 
-        
+        <Label FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center">Battle Ships</Label>    
         
         <Grid Grid.Row="1" x:Name="GameField">
             <Grid.ColumnDefinitions>
@@ -25,9 +25,61 @@
                 <ColumnDefinition Width="0.35*" x:Name="EnemyField"></ColumnDefinition>
                 <ColumnDefinition Width="0.12*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                     
-            <Grid.Resources>
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Property="FontSize" Value="25"></Setter>
+                    </Style>
+                </Grid.Resources>
 
+                <Label Grid.Row="0">1X1 Ship</Label>
+                <Label Grid.Row="1">1X2 Ship</Label>
+                <Label Grid.Row="2">1X4 Ship</Label>
+                <Label Grid.Row="3">2X2 Ship</Label>
+                <Button Grid.Row="4" Content="Ready" Click="Ready_Click"/>
+            </Grid>
+
+            <Grid Grid.Column="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Property="FontSize" Value="25"></Setter>
+                    </Style>
+                </Grid.Resources>
+
+                <Label Grid.Row="0">1X1 Ship</Label>
+                <Label Grid.Row="1">1X2 Ship</Label>
+                <Label Grid.Row="2">1X4 Ship</Label>
+                <Label Grid.Row="3">2X2 Ship</Label>
+                <Button Grid.Row="4" Content="Ready"></Button>
+            </Grid>
+
+            <Grid.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                    <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                    
+                </Style>
             </Grid.Resources>
             
             
