@@ -22,6 +22,8 @@ namespace Battle_Ships
     public partial class MainWindow : Window
     {
     Grid myGrid = null;
+    private int ShipSizeX = 0;
+    private int ShipSizeY = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -115,31 +117,7 @@ namespace Battle_Ships
             //if ((sender as Button).Background == Brushes.Red)
             //    (sender as Button).Background = Brushes.Orange;
 
-            int centerIndex = myGrid.Children.IndexOf(sender as Button);
-
-            for(int i = -1; i < 2; i++)
-            {
-                for(int j = -1; j < 2; j++)
-                {
-                    int Index = centerIndex;
-                    if (((centerIndex + j) / 10 != centerIndex / 10) || centerIndex + j < 0 || centerIndex + j > 99)
-                    {
-                        Index += j * (-2);
-                    }
-                    else
-                        Index += j;
-                    if((centerIndex + i * 10) < 0 || (centerIndex + i * 10) > 99)
-                    {
-                        Index += i * (-2) * 10;
-                    }
-                    else
-                    {
-                        Index += i * 10;
-                    }
-
-                    (myGrid.Children[Index] as Button).BorderBrush = Brushes.Orange;
-                }
-            }
+            DrawShipSize(sender, ShipSizeX, ShipSizeY, Brushes.Black);
             
         }
         private void Button_MouseLeave(object sender, MouseEventArgs e)
@@ -147,32 +125,53 @@ namespace Battle_Ships
             //if((sender as Button).Background == Brushes.Orange)
             //(sender as Button).Background = Brushes.Red;
 
+
+            DrawShipSize(sender, ShipSizeX , ShipSizeY, Brushes.Transparent);
+
+        }
+
+        private void ShipSizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            switch((sender as Button).Content.ToString())
+            {
+                case "1X1 Ship": ShipSizeX = 1; ShipSizeY = 1; break;
+                case "1X2 Ship": ShipSizeX = 1; ShipSizeY = 2; break;
+                case "1X4 Ship": ShipSizeX = 1; ShipSizeY = 4; break;
+                case "2X2 Ship": ShipSizeX = 2; ShipSizeY = 4; break;
+            }
+        }
+
+        private void DrawShipSize(object sender, int x, int y, Brush Clr)
+        {
             int centerIndex = myGrid.Children.IndexOf(sender as Button);
 
-            for (int i = -1; i < 2; i++)
+            int HalfX = x / 2;
+            int HalfY = y / 2;
+
+            for (int i = -HalfY; i < (y - HalfY ); i++)
             {
-                for (int j = -1; j < 2; j++)
+                for (int j = -HalfX; j < (x - HalfX ); j++)
                 {
                     int Index = centerIndex;
                     if (((centerIndex + j) / 10 != centerIndex / 10) || centerIndex + j < 0 || centerIndex + j > 99)
                     {
-                        Index += j * (-2);
+                        Index += Math.Sign(j) * (-HalfX) - (Math.Sign(j))*(HalfX - Math.Abs(j)) - Math.Sign(j)*(x %2);
                     }
                     else
                         Index += j;
+
                     if ((centerIndex + i * 10) < 0 || (centerIndex + i * 10) > 99)
                     {
-                        Index += i * (-2) * 10;
+                        Index += (Math.Sign(i) * (-HalfY) - (Math.Sign(i)) * (HalfY - Math.Abs(i)) - Math.Sign(i) * (y %2)) * 10;
                     }
                     else
                     {
                         Index += i * 10;
                     }
 
-                    (myGrid.Children[Index] as Button).BorderBrush = Brushes.Transparent;
+                    (myGrid.Children[Index] as Button).BorderBrush = Clr;
                 }
             }
-
         }
     }   
 
