@@ -43,7 +43,7 @@
                     </Style>
                 </Grid.Resources>
 
-                <Button Grid.Row="0" Click="ShipSizeBtn_Click">1X1 Ship</Button>
+                <Button Grid.Row="0" Click="ShipSizeBtn_Click" >1X1 Ship</Button>
                 <Button Grid.Row="1" Click="ShipSizeBtn_Click">1X2 Ship</Button>
                 <Button Grid.Row="2" Click="ShipSizeBtn_Click">1X4 Ship</Button>
                 <Button Grid.Row="3" Click="ShipSizeBtn_Click">2X2 Ship</Button>

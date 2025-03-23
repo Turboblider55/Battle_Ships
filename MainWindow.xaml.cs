@@ -72,6 +72,7 @@ namespace Battle_Ships
                     Btn.Click += Button_Click;
                     Btn.MouseEnter += Button_MouseEnter;
                     Btn.MouseLeave += Button_MouseLeave;
+                    Btn.MouseWheel += Button_Wheel;
 
                     myGrid.Children.Add(Btn);
                     Grid.SetRow(Btn, i);
@@ -102,6 +103,7 @@ namespace Battle_Ships
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             if ((sender as Button).Background == Brushes.Gray)
             {
                 (sender as Button).Background = Brushes.Red;
@@ -110,6 +112,12 @@ namespace Battle_Ships
             {
                 (sender as Button).Background = Brushes.Gray;
             }
+            
+            
+            DrawShipSize(sender, ShipSizeX, ShipSizeY, Brushes.Transparent, "O");
+            ShipSizeX = 1;
+            ShipSizeY = 1;
+            
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
@@ -117,7 +125,8 @@ namespace Battle_Ships
             //if ((sender as Button).Background == Brushes.Red)
             //    (sender as Button).Background = Brushes.Orange;
 
-            DrawShipSize(sender, ShipSizeX, ShipSizeY, Brushes.Black);
+            DrawShipSize(sender, ShipSizeX, ShipSizeY, Brushes.Black,"X");
+            
             
         }
         private void Button_MouseLeave(object sender, MouseEventArgs e)
@@ -126,8 +135,8 @@ namespace Battle_Ships
             //(sender as Button).Background = Brushes.Red;
 
 
-            DrawShipSize(sender, ShipSizeX , ShipSizeY, Brushes.Transparent);
-
+            DrawShipSize(sender, ShipSizeX , ShipSizeY, Brushes.Transparent,"O");
+            
         }
 
         private void ShipSizeBtn_Click(object sender, RoutedEventArgs e)
@@ -139,9 +148,10 @@ namespace Battle_Ships
                 case "1X4 Ship": ShipSizeX = 1; ShipSizeY = 4; break;
                 case "2X2 Ship": ShipSizeX = 2; ShipSizeY = 4; break;
             }
+
         }
 
-        private void DrawShipSize(object sender, int x, int y, Brush Clr)
+        private void DrawShipSize(object sender, int x, int y, Brush Clr,string Ctn)
         {
             int centerIndex = myGrid.Children.IndexOf(sender as Button);
 
@@ -170,8 +180,20 @@ namespace Battle_Ships
                     }
 
                     (myGrid.Children[Index] as Button).BorderBrush = Clr;
+                    (myGrid.Children[Index] as Button).Content = Ctn;
                 }
             }
+        }
+
+        private void Button_Wheel(object sender, MouseWheelEventArgs e)
+        {
+            DrawShipSize(sender, ShipSizeX, ShipSizeY, Brushes.Transparent, "O");
+
+            int temp = ShipSizeX;
+            ShipSizeX = ShipSizeY;
+            ShipSizeY = temp;
+
+            DrawShipSize(sender, ShipSizeX, ShipSizeY, Brushes.Black, "X");
         }
     }   
 
