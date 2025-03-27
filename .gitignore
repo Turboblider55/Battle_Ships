@@ -130,7 +130,11 @@ publish/
 *.pubxml
 
 # NuGet Packages Directory
-packages/*
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+PackageRestore.nuget.config
 ## TODO: If the tool you use requires repositories.config
 ## uncomment the next line
 #!packages/repositories.config
@@ -188,5 +192,22 @@ git_stats/*
 
 *.ncrunchproject
 StyleCop.Cache
-bin
-obj
+
+# Build artifacts
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+*.csproj.user
+
+# Visual Studio files
+.vs/
+*.userosscache
+
+# Rider / JetBrains
+.idea/
+*.dotCover
+*.sln.iml
